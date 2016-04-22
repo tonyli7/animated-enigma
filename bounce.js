@@ -1,8 +1,8 @@
 
 
 var make = document.getElementById("make");
-
-
+var red = document.getElementById("redify");
+var list_balls = [];
 
 var intervalID;
 var makeBall = function(){
@@ -53,7 +53,8 @@ var makeBall = function(){
 	getX: getX,
 	getY: getY,
 	radius: radius,
-	color: color
+	color: color , 
+	ball: c
     }
     
     console.log(intervalID)
@@ -62,12 +63,18 @@ var makeBall = function(){
 var intervalID;
 var drawBall = function (){
     var b = makeBall();
+    list_balls.push(b);
     intervalID=setInterval(b.dvdgo,10);
-   
 }
 
-var stop = function(){
-    window.clearInterval(intervalID);
+var redify = function (){
+    var newList = list_balls.map( function (ball){
+	console.log(ball)
+	ball.ball.setAttribute("fill", "red");
+	return ball;
+    });
+    list_balls=newList;
 }
+
 make.addEventListener("click", drawBall)
-
+red.addEventListener("click", redify)
