@@ -3,51 +3,26 @@
 var make = document.getElementById("make");
 
 
-var makeBall = function (){
-    var radius=Math.random()*100;
-    var speed=1;
-    var color="#ff0000";
-    
-    var getRad = function(){
-	return radius;
-    }
 
-    var getSpeed = function(){
-	return speed;
-    }
 
-    var getColor = function(){
-	return color;
-    }
-
-    drawBall();
-
-    return {
-	setRad: function(r){radius = r;},
-	setSpeed: function(s){speed = s},
-	setColor: function(c){color = c},
-	radius: getRad,
-	speed: getSpeed,
-	color: getColor
-    }
-}
-
-var intervalID
-var drawBall = function(){
+var intervalID;
+var makeBall = function(){
     var ball = document.getElementById("bouncey");
     var c = document.createElementNS("http://www.w3.org/2000/svg","circle");
 
     console.log(radius);
     var x_dir=Math.random()*3+1;
     var y_dir=Math.random()*3+1;
-    var ballX=Math.random()*438;
-    var ballY=Math.random()*438;
+    var ballX=Math.random()*400+50;
+    var ballY=Math.random()*400+50;
     var radius=Math.random()*75+25;
+    var color='#'+Math.floor(Math.random()*16777215).toString(16);
 
     c.setAttribute("cx", ballX);
     c.setAttribute("cy", ballY);
     c.setAttribute("r", radius);
-    c.setAttribute("fill","blue");
+    
+    c.setAttribute("fill",color);
     c.setAttribute("stroke","black");
   
     var dvdgo = function(){
@@ -66,8 +41,30 @@ var drawBall = function(){
 	ball.appendChild(c);
 	console.log(ball.getAttribute("width"));
     }
-    intervalID=window.setInterval(dvdgo,30);
+
+    var getX = function(){
+        return x;
+    }
+
+    var getY = function(){
+        return y;
+    }
+
+    return {
+	dvdgo: dvdgo,
+	getX: getX,
+	getY: getY,
+	radius: radius,
+	color: color
+    }
+    
     console.log(intervalID)
 }
 
-make.addEventListener("click", makeBall)
+var drawBall = function (){
+    var b = makeBall();
+    setInterval(b.dvdgo,10);
+
+    
+}
+make.addEventListener("click", drawBall)
