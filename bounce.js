@@ -49,10 +49,20 @@ var makeBall = function(){
         return y;
     }
 
+    var setColor = function (color){
+	c.setAttribute("fill", color);
+    }
+
+    var setRad = function(rad){
+	c.setAttribute("r", rad);
+    }
+
     return {
 	dvdgo: dvdgo,
 	getX: getX,
 	getY: getY,
+	setColor: setColor,
+	setRad: setRad,
 	radius: radius,
 	color: color , 
 	ball: c
@@ -69,9 +79,8 @@ var drawBall = function (){
 }
 
 var redify = function (){
-    var newList = list_balls.map( function (b){
-	
-	b.ball.setAttribute("fill", "red");
+    var newList = list_balls.map( function (b){	
+	b.setColor("red");
 	return b;
     });
     list_balls=newList;
@@ -79,7 +88,7 @@ var redify = function (){
 
 var shrink = function(){
     var newList = list_balls.map(function (b){
-	b.ball.setAttribute("r", b.radius/2);
+	b.setRad(b.radius/2);
 	return b;
     });
 }
