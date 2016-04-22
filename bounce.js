@@ -4,7 +4,6 @@ var make = document.getElementById("make");
 
 
 
-
 var intervalID;
 var makeBall = function(){
     var ball = document.getElementById("bouncey");
@@ -21,7 +20,6 @@ var makeBall = function(){
     c.setAttribute("cx", ballX);
     c.setAttribute("cy", ballY);
     c.setAttribute("r", radius);
-    
     c.setAttribute("fill",color);
     c.setAttribute("stroke","black");
   
@@ -61,10 +59,15 @@ var makeBall = function(){
     console.log(intervalID)
 }
 
+var intervalID;
 var drawBall = function (){
     var b = makeBall();
-    setInterval(b.dvdgo,10);
+    intervalID=setInterval(b.dvdgo,10);
+   
+}
 
-    
+var stop = function(){
+    window.clearInterval(intervalID);
 }
 make.addEventListener("click", drawBall)
+
