@@ -1,9 +1,10 @@
-var c = document.getElementById("bouncey");//canvas object
-var ctx = c.getContext("2d");
-ctx.strokeRect(0,0,538,538);
-/*
-var makeBall = function (r){
-    var radius=r;
+
+
+var make = document.getElementById("make");
+
+
+var makeBall = function (){
+    var radius=Math.random()*100;
     var speed=1;
     var color="#ff0000";
     
@@ -19,7 +20,7 @@ var makeBall = function (r){
 	return color;
     }
 
-    drawBall(radius, color);
+    drawBall();
 
     return {
 	setRad: function(r){radius = r;},
@@ -30,38 +31,43 @@ var makeBall = function (r){
 	color: getColor
     }
 }
-*/
-var x_dir=1.5;
-var y_dir=-1.5;
-var ballX=Math.random()*450+50;
-var ballY=Math.random()*450+50;
-var drawBall = function(radius, color){
-    console.log(radius);
-    radius-=17
-    ctx.clearRect(0,0,538,538);
-    radius=20;
-  
-  /*
-    var ballX=250;
-    var ballY=250;
-*/
-    ctx.beginPath();
-    ctx.fillStyle=color;
-   
 
-    if ( ballX >= (c.width - 60) || ballX <= 0 ) {
-        x_dir = -x_dir;
-    } 
-    if ( ballY >= (c.height - 40) || ballY <= 0 ) {
-	y_dir = -y_dir;
+var intervalID
+var drawBall = function(){
+    var ball = document.getElementById("bouncey");
+    var c = document.createElementNS("http://www.w3.org/2000/svg","circle");
+
+    console.log(radius);
+    var x_dir=Math.random()*3+1;
+    var y_dir=Math.random()*3+1;
+    var ballX=Math.random()*438;
+    var ballY=Math.random()*438;
+    var radius=Math.random()*75+25;
+
+    c.setAttribute("cx", ballX);
+    c.setAttribute("cy", ballY);
+    c.setAttribute("r", radius);
+    c.setAttribute("fill","blue");
+    c.setAttribute("stroke","black");
+  
+    var dvdgo = function(){
+	ballX += x_dir;
+	ballY += y_dir;
+	if ( ballX >= (500 - c.getAttribute("r")) || ballX <= c.getAttribute("r") ) {
+            x_dir = -x_dir;
+	} 
+	if ( ballY >= (500 - c.getAttribute("r")) || ballY <= c.getAttribute("r") ) {
+	    y_dir = -y_dir;
+	}
+
+
+	c.setAttribute("cx", ballX);
+	c.setAttribute("cy", ballY);
+	ball.appendChild(c);
+	console.log(ball.getAttribute("width"));
     }
-    ballX += x_dir;
-    ballY += y_dir;
-    ctx.arc(ballX,ballY,radius,0,2*Math.PI);
-    ctx.stroke();
-    ctx.fill();
-    requestID = window.requestAnimationFrame(drawBall);
-    
-   
+    intervalID=window.setInterval(dvdgo,30);
+    console.log(intervalID)
 }
-drawBall(2,"#ff0000")
+
+make.addEventListener("click", makeBall)
