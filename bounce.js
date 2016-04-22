@@ -2,6 +2,7 @@
 
 var make = document.getElementById("make");
 var red = document.getElementById("redify");
+var shrink_btn = document.getElementById("shrink")
 var list_balls = [];
 
 var intervalID;
@@ -68,13 +69,21 @@ var drawBall = function (){
 }
 
 var redify = function (){
-    var newList = list_balls.map( function (ball){
-	console.log(ball)
-	ball.ball.setAttribute("fill", "red");
-	return ball;
+    var newList = list_balls.map( function (b){
+	
+	b.ball.setAttribute("fill", "red");
+	return b;
     });
     list_balls=newList;
 }
 
+var shrink = function(){
+    var newList = list_balls.map(function (b){
+	b.ball.setAttribute("r", b.radius/2);
+	return b;
+    });
+}
+
 make.addEventListener("click", drawBall)
 red.addEventListener("click", redify)
+shrink_btn.addEventListener("click", shrink)
